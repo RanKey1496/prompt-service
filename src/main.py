@@ -19,3 +19,7 @@ app.include_router(media.router)
 @app.on_event("startup")
 def on_startup():
     print("on_startup")
+    
+@app.get("/health")
+def health():
+    return { "ready": True }

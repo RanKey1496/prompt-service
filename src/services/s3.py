@@ -14,7 +14,7 @@ def generated_presigned_url(id: str, type: str, filename: str, content_type: str
     try:
         if type == 'audio':
             key = os.path.join('audio', id, filename)
-        elif type == 'media':
+        elif type == 'video':
             key = os.path.join('video', id, filename)
         else:
             key = os.path.join('media', id, filename)
