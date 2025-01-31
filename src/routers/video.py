@@ -2,8 +2,8 @@ from typing import Annotated
 from fastapi import Depends, APIRouter, Query
 from sqlmodel import Session
 from db import get_session
-from models.video_model import Video
-from services.video_service import get_videos, get_video
+from models.video_model import Video, VideoUpdate
+from services.video_service import get_videos, get_video, create_video, update_video
 
 router = APIRouter()
 
@@ -19,3 +19,11 @@ def read_videos(session: SessionDep,
 def read_video(session: SessionDep,
                video_id: int):
     return get_video(session, video_id)
+
+@router.post("/videos")
+def save_video(video: Video, session: SessionDep):
+    return create_video(video, session)
+
+@router.patch("/videos/{id}")
+def patch_video(id: str, video: VideoUpdate, session: SessionDep):
+    return update_video(id, video, session)
