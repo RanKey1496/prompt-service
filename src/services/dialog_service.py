@@ -79,7 +79,7 @@ def script_from_text(text) -> str:
             try_number += 1
             continue
         
-        if len(completion) > 5000:
+        if len(completion) > 700:
             print("El script generado es demasiado largo")
             try_number += 1
             continue

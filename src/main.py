@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import video
 from routers import dialog
+from routers import media
 
 app = FastAPI()
 
@@ -13,6 +14,7 @@ app.add_middleware(CORSMiddleware,
 
 app.include_router(video.router)
 app.include_router(dialog.router)
+app.include_router(media.router)
 
 @app.on_event("startup")
 def on_startup():
