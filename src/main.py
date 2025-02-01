@@ -5,7 +5,7 @@ from routers import video
 from routers import dialog
 from routers import media
 from config import get_nats_url
-from services.nat_service import connect_to_nats
+from services.nat_service import connect_to_nats, subscribe_to_job_video_result
 
 app = FastAPI()
 
@@ -24,6 +24,7 @@ async def on_startup():
     print("Connecting to NATs...")
     await connect_to_nats(get_nats_url())
     print("Connection successfully to NATs.")
+    await subscribe_to_job_video_result()
     
 @app.get("/health")
 def health():
