@@ -27,7 +27,7 @@ def generated_presigned_url(id: str, type: str, filename: str, content_type: str
             },
             ExpiresIn=3600
         )
-        return { 'data': presigned_url}
+        return { 'data': presigned_url }
     except Exception as e:
         print(e)
         raise HTTPException(status_code=400, detail='No se ha podido generar la URL')

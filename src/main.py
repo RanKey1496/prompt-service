@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from db import check_and_reconnect
 from routers import video
 from routers import dialog
 from routers import media
@@ -22,4 +23,5 @@ def on_startup():
     
 @app.get("/health")
 def health():
+    check_and_reconnect()
     return { "ready": True }

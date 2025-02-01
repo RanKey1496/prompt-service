@@ -9,3 +9,17 @@ def created_db_and_tables():
 def get_session():
     with Session(engine) as session:
         yield session
+        
+def check_and_reconnect():
+    try:
+        with engine.connect() as connection:
+            connection.execute("SELECT 1")
+        return True
+    except Exception as e:
+        try:
+            engine.dispose()
+            with engine.connect() as connection:
+                connection.execute("SELECT 1")
+                return True
+        except:
+            return False
