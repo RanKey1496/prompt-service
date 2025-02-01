@@ -31,3 +31,18 @@ def generated_presigned_url(id: str, type: str, filename: str, content_type: str
     except Exception as e:
         print(e)
         raise HTTPException(status_code=400, detail='No se ha podido generar la URL')
+    
+def generate_result_url(key: str):
+    try:
+        presigned_url = s3_client.generate_presigned_url(
+        "get_object",
+        Params={
+            "Bucket": get_s3_bucket(),
+            "Key": key
+        },
+        ExpiresIn=3600
+        )
+        return { "data": presigned_url }
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=400, detail='No se ha podido generar la URL')

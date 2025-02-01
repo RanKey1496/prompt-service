@@ -5,6 +5,7 @@ from db import get_session
 from models.video_model import Video, VideoUpdate
 from services.video_service import get_videos, get_video, create_video, update_video
 from services.nat_service import publish_jobs_created
+from services.s3_service import generate_result_url
 
 router = APIRouter()
 
@@ -30,3 +31,8 @@ async def patch_video(id: str, video: VideoUpdate, session: SessionDep):
     video = update_video(id, video, session)
     await publish_jobs_created(id, video.audio_path, video.media_path)
     return video
+
+@router.get("/videos/{id}/result")
+async def get_result(id: str, session: SessionDep):
+    video = get_video(session, id)
+    return generate_result_url(video.video_path)
