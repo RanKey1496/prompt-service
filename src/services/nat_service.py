@@ -28,4 +28,4 @@ async def publish_jobs_created(id, audio, media):
     
     if (audio and media):
         print('Publising to job.video.created')
-        publish('job.video.created', { 'id': id, 'audio_path': audio, 'media_path': media })
+        await publish('job.video.created', { 'id': id, 'audio_path': audio, 'media_path': media })

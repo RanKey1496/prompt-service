@@ -26,6 +26,6 @@ def save_video(video: Video, session: SessionDep):
     return create_video(video, session)
 
 @router.patch("/videos/{id}")
-def patch_video(id: str, video: VideoUpdate, session: SessionDep):
+async def patch_video(id: str, video: VideoUpdate, session: SessionDep):
     video = update_video(id, video, session)
-    publish_jobs_created(id, video.audio_path, video.media_path)
+    await publish_jobs_created(id, video.audio_path, video.media_path)
