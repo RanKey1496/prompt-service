@@ -1,4 +1,5 @@
 import asyncio
+import json
 from nats.aio.client import Client as NATS
 
 nc = NATS()
@@ -28,4 +29,5 @@ async def publish_jobs_created(id, audio, media):
     
     if (audio and media):
         print('Publising to job.video.created')
-        await publish('job.video.created', { 'id': id, 'audio_path': audio, 'media_path': media })
+        data = { 'id': id, 'audio_path': audio, 'media_path': media }
+        await publish('job.video.created', json.dumps(data).encode())

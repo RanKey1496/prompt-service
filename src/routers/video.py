@@ -29,3 +29,4 @@ def save_video(video: Video, session: SessionDep):
 async def patch_video(id: str, video: VideoUpdate, session: SessionDep):
     video = update_video(id, video, session)
     await publish_jobs_created(id, video.audio_path, video.media_path)
+    return video
