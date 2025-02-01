@@ -4,6 +4,7 @@ from sqlmodel import Session
 from db import get_session
 from models.video_model import Video, VideoUpdate
 from services.video_service import get_videos, get_video, create_video, update_video
+from services.nat_service import publish_jobs_created
 
 router = APIRouter()
 
@@ -26,4 +27,5 @@ def save_video(video: Video, session: SessionDep):
 
 @router.patch("/videos/{id}")
 def patch_video(id: str, video: VideoUpdate, session: SessionDep):
-    return update_video(id, video, session)
+    video = update_video(id, video, session)
+    publish_jobs_created(id, video.audio_path, video.media_path)

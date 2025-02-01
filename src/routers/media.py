@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from services.s3 import generated_presigned_url
+from services.s3_service import generated_presigned_url
 from models.requests.media import PresignedURL
 
 router = APIRouter()

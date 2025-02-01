@@ -4,6 +4,8 @@ from db import check_and_reconnect
 from routers import video
 from routers import dialog
 from routers import media
+from config import get_nats_url
+from services.nat_service import connect_to_nats
 
 app = FastAPI()
 
@@ -18,8 +20,10 @@ app.include_router(dialog.router)
 app.include_router(media.router)
 
 @app.on_event("startup")
-def on_startup():
-    print("on_startup")
+async def on_startup():
+    print("Connecting to NATs...")
+    await connect_to_nats(get_nats_url())
+    print("Connection successfully to NATs.")
     
 @app.get("/health")
 def health():

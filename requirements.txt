@@ -4,3 +4,4 @@ python-dotenv
 g4f
 psycopg2
 boto3
+nats-py
