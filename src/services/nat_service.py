@@ -17,7 +17,7 @@ async def subscribe_to_job_video_result():
         data = json.loads(msg.data.decode())
         print(f"Mensaje recibido en el tema '{subject}': {data}")
         
-        video_id = data.get('id')
+        video_id = int(data.get('id'))
         if video_id and video_id in event_queue:
             await event_queue[video_id].put(data)
             print(f'Mensaje enviado a la cola con id {video_id}')

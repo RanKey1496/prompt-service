@@ -30,14 +30,14 @@ def save_video(video: Video, session: SessionDep):
     return create_video(video, session)
 
 @router.patch("/videos/{id}")
-async def patch_video(id: str, video: VideoUpdate, session: SessionDep):
+async def patch_video(id: int, video: VideoUpdate, session: SessionDep):
     video = update_video(id, video, session)
     await publish_job_created(id, video.audio_path, video.media_path)
     await publish_job_result(id)
     return video
 
 @router.get("/videos/{id}/result")
-async def get_result(id: str, session: SessionDep):
+async def get_result(id: int, session: SessionDep):
     video = get_video(session, id)
     return generate_result_url(video.video_path)
 
